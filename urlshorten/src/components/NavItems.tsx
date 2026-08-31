@@ -1,19 +1,14 @@
 import { Link, NavLink, useNavigate } from 'react-router'
 import { sidebarItems } from '@root/constants'
 import { cn } from '@root/lib/utils.ts'
+import { useCurrentUser } from '@root/hooks/useCurrentUser.ts'
 
 const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
   const navigate = useNavigate()
-
-  const user = {
-    name: 'Tran Minh Hieu',
-    email: 'hieuthu2@gmail.com',
-    imageUrl: '/assets/images/david.webp',
-  }
+  const { data: user, isLoading } = useCurrentUser()
 
   const handleLogout = async () => {
     localStorage.removeItem('accessToken')
-    localStorage.removeItem('user')
     navigate('/sign-in')
   }
 
@@ -52,15 +47,18 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
         </nav>
 
         <footer className='nav-footer'>
-          <img
-            src={user?.imageUrl || '/assets/images/david.webp'}
-            alt={user?.name || 'David'}
-          />
+          {isLoading ? (
+            <img src='/assets/icons/loader.svg' alt='loading' />
+          ) : (
+            <>
+              <img src={'/assets/images/david.webp'} alt={user?.display_name} />
 
-          <article>
-            <h2>{user?.name}</h2>
-            <p>{user?.email}</p>
-          </article>
+              <article>
+                <h2>{user?.display_name}</h2>
+                <p>{user?.email}</p>
+              </article>
+            </>
+          )}
 
           <button onClick={handleLogout} className='cursor-pointer'>
             <img
