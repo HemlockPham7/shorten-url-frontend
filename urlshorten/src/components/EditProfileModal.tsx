@@ -2,7 +2,7 @@ import { useUpdateUser } from '@root/hooks/user/useUpdateUser.ts'
 import { useEffect, useState } from 'react'
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs'
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
-import type { User } from '@root/hooks/user/useCurrentUser.ts'
+import type { User } from '@root/hooks/common/utils.ts'
 
 interface EditProfileModalProps {
   user: User
