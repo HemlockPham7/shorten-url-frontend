@@ -1,9 +1,14 @@
 import { Link, NavLink, useNavigate } from 'react-router'
 import { sidebarItems } from '@root/constants'
 import { cn } from '@root/lib/utils.ts'
-import { useCurrentUser } from '@root/hooks/useCurrentUser.ts'
+import { useCurrentUser } from '@root/hooks/user/useCurrentUser.ts'
 
-const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
+interface NavItemsProps {
+  handleClick?: () => void
+  onProfileClick: () => void
+}
+
+const NavItems = ({ handleClick, onProfileClick }: NavItemsProps) => {
   const navigate = useNavigate()
   const { data: user, isLoading } = useCurrentUser()
 
@@ -50,14 +55,18 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
           {isLoading ? (
             <img src='/assets/icons/loader.svg' alt='loading' />
           ) : (
-            <>
-              <img src={'/assets/images/david.webp'} alt={user?.display_name} />
+            <button
+              type='button'
+              className='flex min-w-0 flex-1 items-center gap-2.5 text-left cursor-pointer'
+              onClick={onProfileClick}
+            >
+              <img src='/assets/images/david.webp' alt={user?.display_name} />
 
               <article>
                 <h2>{user?.display_name}</h2>
                 <p>{user?.email}</p>
               </article>
-            </>
+            </button>
           )}
 
           <button onClick={handleLogout} className='cursor-pointer'>
