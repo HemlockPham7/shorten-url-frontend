@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router'
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs'
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
-import { useRegister } from '@root/hooks/useRegister.ts'
+import { useRegister } from '@root/hooks/user/useRegister.ts'
 
 const SignUp = () => {
   const navigate = useNavigate()
