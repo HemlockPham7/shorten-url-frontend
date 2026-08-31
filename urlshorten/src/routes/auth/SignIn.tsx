@@ -1,22 +1,31 @@
 import { Link, useNavigate } from 'react-router'
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs'
+import { useLogin } from '@root/hooks/useAuth.ts'
 
 const SignIn = () => {
   const navigate = useNavigate()
+  const { mutate: login, isPending } = useLogin()
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const user = {
-      name: 'Tran Minh Hieu',
-      email: 'hieuthu2@gmail.com',
-      imageUrl: '/assets/images/david.webp',
-    }
+    const formData = new FormData(e.currentTarget)
 
-    localStorage.setItem('user', JSON.stringify(user))
+    const username = formData.get('username') as string
+    const password = formData.get('password') as string
 
-    navigate('/')
+    login(
+      {
+        username,
+        password,
+      },
+      {
+        onSuccess: () => {
+          navigate('/')
+        },
+      },
+    )
   }
 
   return (
@@ -74,7 +83,9 @@ const SignIn = () => {
                 type='submit'
                 className='button-class h-12 w-full'
               >
-                <span className='p-18-semibold text-white'>Sign In</span>
+                <span className='p-18-semibold text-white'>
+                  {isPending ? 'Loading...' : 'Sign In'}
+                </span>
               </ButtonComponent>
 
               <ButtonComponent

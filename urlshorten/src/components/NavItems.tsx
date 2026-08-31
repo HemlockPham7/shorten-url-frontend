@@ -12,6 +12,7 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
   }
 
   const handleLogout = async () => {
+    localStorage.removeItem('accessToken')
     localStorage.removeItem('user')
     navigate('/sign-in')
   }

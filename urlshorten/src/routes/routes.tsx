@@ -5,16 +5,14 @@ import ShortenURL from '@root/routes/shortenurl/ShortenURL.tsx'
 import Bookmarks from '@root/routes/bookmark/Bookmarks.tsx'
 import ImportBookmarks from '@root/routes/bookmark/ImportBookmarks.tsx'
 
-const getCurrentUser = () => {
-  const user = localStorage.getItem('user')
-
-  return user ? JSON.parse(user) : null
+const getAccessToken = () => {
+  return localStorage.getItem('accessToken')
 }
 
 const requireAuth = () => {
-  const user = getCurrentUser()
+  const token = getAccessToken()
 
-  if (!user) {
+  if (!token) {
     throw redirect('/sign-in')
   }
 
@@ -22,9 +20,9 @@ const requireAuth = () => {
 }
 
 const redirectIfAuthenticated = () => {
-  const user = getCurrentUser()
+  const token = getAccessToken()
 
-  if (user) {
+  if (token) {
     throw redirect('/')
   }
 
