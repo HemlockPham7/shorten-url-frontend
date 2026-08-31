@@ -4,6 +4,7 @@ import Navbar from '@root/routes/layout/Navbar.tsx'
 import ShortenURL from '@root/routes/shortenurl/ShortenURL.tsx'
 import Bookmarks from '@root/routes/bookmark/Bookmarks.tsx'
 import ImportBookmarks from '@root/routes/bookmark/ImportBookmarks.tsx'
+import SignUp from '@root/routes/auth/SignUp.tsx'
 
 const getAccessToken = () => {
   return localStorage.getItem('accessToken')
@@ -33,6 +34,11 @@ const routes = createBrowserRouter([
   {
     path: '/sign-in',
     Component: SignIn,
+    loader: redirectIfAuthenticated,
+  },
+  {
+    path: '/sign-up',
+    Component: SignUp,
     loader: redirectIfAuthenticated,
   },
   {

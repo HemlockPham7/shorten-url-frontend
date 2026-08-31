@@ -1,28 +1,32 @@
 import { Link, useNavigate } from 'react-router'
-import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs'
-import { useLogin } from '@root/hooks/useLogin.ts'
+import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
+import { useRegister } from '@root/hooks/useRegister.ts'
 
-const SignIn = () => {
+const SignUp = () => {
   const navigate = useNavigate()
-  const { mutate: login, isPending } = useLogin()
+  const { mutate: register, isPending } = useRegister()
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const formData = new FormData(e.currentTarget)
 
+    const displayName = formData.get('displayName') as string
+    const email = formData.get('email') as string
     const username = formData.get('username') as string
     const password = formData.get('password') as string
 
-    login(
+    register(
       {
+        display_name: displayName,
+        email,
         username,
         password,
       },
       {
         onSuccess: () => {
-          navigate('/')
+          navigate('/sign-in')
         },
       },
     )
@@ -50,6 +54,34 @@ const SignIn = () => {
           </article>
 
           <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='displayName' className='form-label'>
+                Display Name
+              </label>
+
+              <TextBoxComponent
+                id='displayName'
+                name='displayName'
+                type='text'
+                placeholder='Enter your Display Name'
+                cssClass='form-input'
+              />
+            </div>
+
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='email' className='form-label'>
+                Email
+              </label>
+
+              <TextBoxComponent
+                id='email'
+                name='email'
+                type='text'
+                placeholder='Enter your email'
+                cssClass='form-input'
+              />
+            </div>
+
             <div className='flex flex-col gap-2'>
               <label htmlFor='username' className='form-label'>
                 Username
@@ -84,7 +116,7 @@ const SignIn = () => {
                 className='button-class h-12 w-full'
               >
                 <span className='p-18-semibold text-white'>
-                  {isPending ? 'Loading...' : 'Sign In'}
+                  {isPending ? 'Signing Up...' : 'Sign Up'}
                 </span>
               </ButtonComponent>
 
@@ -107,9 +139,9 @@ const SignIn = () => {
               <ButtonComponent
                 type='button'
                 className='button-class-secondary h-12 w-full'
-                onClick={() => navigate('/sign-up')}
+                onClick={() => navigate('/sign-in')}
               >
-                <span className='p-18-semibold text-dark-100'>Sign Up</span>
+                <span className='p-18-semibold text-dark-100'>Sign In</span>
               </ButtonComponent>
             </div>
           </form>
@@ -118,4 +150,4 @@ const SignIn = () => {
     </main>
   )
 }
-export default SignIn
+export default SignUp
