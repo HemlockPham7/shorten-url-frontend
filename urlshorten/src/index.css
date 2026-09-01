@@ -450,11 +450,14 @@
     @apply text-sm font-normal text-gray-100;
   }
   .form-input {
-    @apply p-3.5 border border-light-400 rounded-xl text-lg text-dark-300 font-normal;
+    @apply p-2 border border-light-400 rounded-xl text-lg text-dark-300 font-normal;
   }
   .form-input .e-input {
     @apply !w-full !p-3.5 !text-lg !text-dark-300 !font-normal;
     box-sizing: border-box;
+  }
+  .form-searchbar {
+    @apply p-2 !w-full !min-w-0 !border !border-light-400 !rounded-xl;
   }
   .comboBox-popup {
     @apply absolute z-10 top-24 bg-white border border-gray-200 rounded-xl shadow-200 h-[250px] w-full md:max-w-[660px] overflow-hidden;
@@ -501,7 +504,7 @@ body {
 
 .e-grid .e-gridheader {
   border-color: #eef9ff !important;
-  border-radius: 12px 12px 0 0 !important;
+  border-radius: 0 !important;
 }
 
 .e-grid .e-row:nth-child(odd) {

@@ -1,6 +1,10 @@
 import { Outlet } from 'react-router'
 import { SidebarComponent } from '@syncfusion/ej2-react-navigations'
-import { EditProfileModal, NavItems } from '@root/components'
+import {
+  EditProfileModal,
+  NavItems,
+  TableSettingsModal,
+} from '@root/components'
 import { useState } from 'react'
 import { useCurrentUser } from '@root/hooks/user/useCurrentUser.ts'
 
@@ -23,6 +27,8 @@ const Navbar = () => {
       {isProfileOpen && user && (
         <EditProfileModal user={user} onClose={() => setIsProfileOpen(false)} />
       )}
+
+      <TableSettingsModal />
     </div>
   )
 }

@@ -5,27 +5,37 @@ import {
   ColumnsDirective,
   GridComponent,
 } from '@syncfusion/ej2-react-grids'
-import { EditBookmarkModal, Header, Pagination } from '@root/components'
+import {
+  DeleteBookmarkModal,
+  EditBookmarkModal,
+  Header,
+  Pagination,
+} from '@root/components'
 import { Pencil, Trash2 } from 'lucide-react'
 import type { Bookmark } from '@root/hooks/common/utils.ts'
-import { useState } from 'react'
-
-const PAGE_SIZE = 5
+import { useEffect, useRef, useState } from 'react'
+import { useTableSettings } from '@root/context/TableSettingsContext.tsx'
+import TableToolbar from '@root/components/TableToolbar.tsx'
 
 const Bookmarks = () => {
+  const { pageSize } = useTableSettings()
   const [searchParams, setSearchParams] = useSearchParams()
   const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null)
+  const [deletingBookmark, setDeletingBookmark] = useState<Bookmark | null>(
+    null,
+  )
+  const previousPageSize = useRef(pageSize)
 
   const pageFromUrl = Number(searchParams.get('page') || '1')
   const currentPage = Math.max(pageFromUrl, 1)
 
   const { data, isLoading, isError } = useListBookmarks({
     page: currentPage,
-    limit: PAGE_SIZE,
+    limit: pageSize,
   })
 
   const bookmarks = data?.data ?? []
-  const totalPages = Math.ceil((data?.pagination.total ?? 0) / PAGE_SIZE)
+  const totalPages = Math.ceil((data?.pagination.total ?? 0) / pageSize)
 
   const safeCurrentPage = totalPages > 0 ? Math.min(currentPage, totalPages) : 1
 
@@ -35,9 +45,15 @@ const Bookmarks = () => {
     })
   }
 
-  const handleDelete = (id: string) => {
-    console.log('Delete bookmark:', id)
-  }
+  useEffect(() => {
+    if (previousPageSize.current !== pageSize) {
+      setSearchParams({
+        page: '1',
+      })
+
+      previousPageSize.current = pageSize
+    }
+  }, [pageSize, setSearchParams])
 
   if (isError) {
     return (
@@ -64,6 +80,8 @@ const Bookmarks = () => {
       />
 
       <section>
+        <TableToolbar title='Table Bookmarks' />
+
         <GridComponent dataSource={bookmarks} gridLines='None'>
           <ColumnsDirective>
             <ColumnDirective
@@ -105,7 +123,7 @@ const Bookmarks = () => {
                   <button
                     type='button'
                     className='text-gray-500 hover:text-red-500 transition-colors'
-                    onClick={() => handleDelete(bookmark.id)}
+                    onClick={() => setDeletingBookmark(bookmark)}
                     aria-label='Delete bookmark'
                   >
                     <Trash2 size={18} />
@@ -133,6 +151,13 @@ const Bookmarks = () => {
         <EditBookmarkModal
           bookmark={editingBookmark}
           onClose={() => setEditingBookmark(null)}
+        />
+      )}
+
+      {deletingBookmark && (
+        <DeleteBookmarkModal
+          bookmark={deletingBookmark}
+          onClose={() => setDeletingBookmark(null)}
         />
       )}
     </main>
