@@ -3,7 +3,7 @@ export const sidebarItems = [
     id: 1,
     icon: '/assets/icons/home.svg',
     label: 'Shorten URL',
-    href: '/shortenurl',
+    href: '/',
   },
   {
     id: 2,
