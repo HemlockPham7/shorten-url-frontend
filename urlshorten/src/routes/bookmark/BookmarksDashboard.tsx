@@ -113,7 +113,7 @@ const BookmarksDashboard = () => {
                 <div className='flex items-center justify-center gap-3'>
                   <button
                     type='button'
-                    className='text-gray-500 hover:text-primary-500 transition-colors'
+                    className='flex size-9 items-center justify-center rounded-lg bg-green-100 text-black transition-colors hover:bg-green-200'
                     onClick={() => setEditingBookmark(bookmark)}
                     aria-label='Edit bookmark'
                   >
@@ -122,7 +122,7 @@ const BookmarksDashboard = () => {
 
                   <button
                     type='button'
-                    className='text-gray-500 hover:text-red-500 transition-colors'
+                    className='flex size-9 items-center justify-center rounded-lg bg-red-100 text-black transition-colors hover:bg-red-200'
                     onClick={() => setDeletingBookmark(bookmark)}
                     aria-label='Delete bookmark'
                   >
