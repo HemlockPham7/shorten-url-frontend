@@ -89,6 +89,11 @@ const BookmarksDashboard = () => {
               headerText='Description'
               width='200'
               textAlign='Left'
+              headerTemplate={() => (
+                <span className='text-sm font-semibold text-dark-100'>
+                  DESCRIPTION
+                </span>
+              )}
             />
 
             <ColumnDirective
@@ -96,6 +101,9 @@ const BookmarksDashboard = () => {
               headerText='URL'
               width='300'
               textAlign='Left'
+              headerTemplate={() => (
+                <span className='text-sm font-semibold text-dark-100'>URL</span>
+              )}
             />
 
             <ColumnDirective
@@ -103,6 +111,11 @@ const BookmarksDashboard = () => {
               headerText='Code'
               width='140'
               textAlign='Left'
+              headerTemplate={() => (
+                <span className='text-sm font-semibold text-dark-100'>
+                  CODE
+                </span>
+              )}
             />
 
             <ColumnDirective
@@ -129,6 +142,11 @@ const BookmarksDashboard = () => {
                     <Trash2 size={18} />
                   </button>
                 </div>
+              )}
+              headerTemplate={() => (
+                <span className='text-sm font-semibold text-dark-100'>
+                  ACTIONS
+                </span>
               )}
             />
           </ColumnsDirective>
