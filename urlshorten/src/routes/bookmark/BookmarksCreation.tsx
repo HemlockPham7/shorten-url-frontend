@@ -3,11 +3,19 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs'
 import { useState } from 'react'
 import { useCreateBookmark } from '@root/hooks/bookmark/useCreateBookmark.ts'
+import { useImportBookmarks } from '@root/hooks/bookmark/useImportBookmarks.ts'
 
 const BookmarksCreation = () => {
   const [description, setDescription] = useState('')
   const [url, setUrl] = useState('')
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
+  const {
+    mutate: importBookmarks,
+    data: importData,
+    isPending: isImporting,
+    isError: isImportError,
+  } = useImportBookmarks()
   const { data, mutate, isPending, isError } = useCreateBookmark()
 
   const handleCreate = () => {
@@ -20,6 +28,20 @@ const BookmarksCreation = () => {
         },
       },
     )
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] ?? null
+
+    setSelectedFile(file)
+  }
+
+  const handleImport = () => {
+    if (!selectedFile) {
+      return
+    }
+
+    importBookmarks(selectedFile)
   }
 
   return (
@@ -128,9 +150,10 @@ const BookmarksCreation = () => {
               </label>
 
               <input
-                id='csvFile'
+                id='csv-file'
                 type='file'
                 accept='.csv,text/csv'
+                onChange={handleFileChange}
                 className='form-input2 h-12 w-full cursor-pointer text-sm'
               />
             </div>
@@ -145,23 +168,41 @@ const BookmarksCreation = () => {
                 id='uploadCsv'
                 type='button'
                 className='button-class-secondary h-12 w-full'
+                onClick={() => document.getElementById('csv-file')?.click()}
               >
                 <span className='p-18-semibold text-dark-100'>
-                  Upload CSV File
+                  {selectedFile ? selectedFile.name : 'Choose CSV File'}
                 </span>
               </ButtonComponent>
             </div>
 
             {/* Row 3 - Import */}
-            <ButtonComponent type='button' className='button-class h-12 w-full'>
-              <span className='p-18-semibold text-white'>Import Bookmarks</span>
+            <ButtonComponent
+              type='button'
+              className='button-class h-12 w-full'
+              disabled={!selectedFile || isImporting}
+              onClick={handleImport}
+            >
+              <span className='p-18-semibold text-white'>
+                {isImporting ? 'Importing...' : 'Import Bookmarks'}
+              </span>
             </ButtonComponent>
 
             {/* Row 4 - Result */}
             <div className='flex min-h-12 items-center rounded-xl border border-light-400 bg-light-200 px-4'>
-              <span className='text-sm text-gray-500'>
-                Import result will appear here.
-              </span>
+              {isImportError ? (
+                <span className='text-sm text-red-500'>
+                  Failed to import bookmarks.
+                </span>
+              ) : importData ? (
+                <span className='text-sm font-medium text-green-600'>
+                  {importData.message}
+                </span>
+              ) : (
+                <span className='text-sm text-gray-500'>
+                  Import result will appear here.
+                </span>
+              )}
             </div>
           </div>
         </article>
