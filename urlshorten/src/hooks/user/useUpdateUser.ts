@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import userApi from '@root/api/axios'
+import userApi from '@root/api/user/userAxios.ts'
 
 export interface UpdateUserPayload {
   display_name: string

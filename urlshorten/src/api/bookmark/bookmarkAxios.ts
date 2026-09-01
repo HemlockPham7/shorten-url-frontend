@@ -1,16 +1,15 @@
 import axios from 'axios'
+import { BASE_BOOKMARK_URL } from '@root/api/utils/basePath.ts'
 
-const BASE_USER_URL = 'http://localhost:8082/v1'
-
-const userApi = axios.create({
-  baseURL: BASE_USER_URL,
+const bookmarkApi = axios.create({
+  baseURL: BASE_BOOKMARK_URL,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
 })
 
-userApi.interceptors.request.use((config) => {
+bookmarkApi.interceptors.request.use((config) => {
   const token = localStorage.getItem('accessToken')
 
   if (token) {
@@ -20,4 +19,4 @@ userApi.interceptors.request.use((config) => {
   return config
 })
 
-export default userApi
+export default bookmarkApi

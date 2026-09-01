@@ -1,1 +1,7 @@
 export { default as NavItems } from '@root/components/NavItems'
+export { default as Pagination } from '@root/components/Pagination'
+export { default as Header } from '@root/components/Header'
+export { default as EditProfileModal } from '@root/components/EditProfileModal'
+export { default as EditBookmarkModal } from '@root/components/EditBookmarkModal'
+export { default as DeleteBookmarkModal } from '@root/components/DeleteBookmarkModal'
+export { default as TableSettingsModal } from '@root/components/TableSettingsModal'

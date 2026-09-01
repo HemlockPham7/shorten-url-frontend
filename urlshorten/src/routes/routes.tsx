@@ -2,9 +2,10 @@ import { createBrowserRouter, redirect } from 'react-router'
 import SignIn from '@root/routes/auth/SignIn.tsx'
 import Navbar from '@root/routes/layout/Navbar.tsx'
 import ShortenURL from '@root/routes/shortenurl/ShortenURL.tsx'
-import Bookmarks from '@root/routes/bookmark/Bookmarks.tsx'
-import ImportBookmarks from '@root/routes/bookmark/ImportBookmarks.tsx'
+import BookmarksDashboard from '@root/routes/bookmark/BookmarksDashboard.tsx'
+import BookmarksCreation from '@root/routes/bookmark/BookmarksCreation.tsx'
 import SignUp from '@root/routes/auth/SignUp.tsx'
+import BookmarkRedirect from '@root/routes/bookmark/BookmarkRedirect.tsx'
 
 const getAccessToken = () => {
   return localStorage.getItem('accessToken')
@@ -47,16 +48,20 @@ const routes = createBrowserRouter([
     loader: requireAuth,
     children: [
       {
-        path: 'shortenurl',
+        index: true,
         Component: ShortenURL,
       },
       {
-        path: 'bookmarks',
-        Component: Bookmarks,
+        path: 'bookmarks-dashboard',
+        Component: BookmarksDashboard,
       },
       {
-        path: 'import',
-        Component: ImportBookmarks,
+        path: 'bookmarks-creation',
+        Component: BookmarksCreation,
+      },
+      {
+        path: 'bookmark-creation/:code',
+        Component: BookmarkRedirect,
       },
     ],
   },
