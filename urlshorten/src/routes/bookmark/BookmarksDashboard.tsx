@@ -17,7 +17,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTableSettings } from '@root/context/TableSettingsContext.tsx'
 import TableToolbar from '@root/components/TableToolbar.tsx'
 
-const Bookmarks = () => {
+const BookmarksDashboard = () => {
   const { pageSize } = useTableSettings()
   const [searchParams, setSearchParams] = useSearchParams()
   const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null)
@@ -62,7 +62,7 @@ const Bookmarks = () => {
           title='Manage Bookmarks'
           description='Filter, sort, and access your bookmarks'
           ctaText='Create a bookmark'
-          ctaUrl='/bookmarks/create'
+          ctaUrl='/bookmarks-creation'
         />
 
         <p className='mt-6 text-red-500'>Failed to load bookmarks.</p>
@@ -76,7 +76,7 @@ const Bookmarks = () => {
         title='Manage Bookmarks'
         description='Filter, sort, and access your bookmarks'
         ctaText='Create a bookmark'
-        ctaUrl='/bookmarks/create'
+        ctaUrl='/bookmarks-creation'
       />
 
       <section>
@@ -164,4 +164,4 @@ const Bookmarks = () => {
   )
 }
 
-export default Bookmarks
+export default BookmarksDashboard
