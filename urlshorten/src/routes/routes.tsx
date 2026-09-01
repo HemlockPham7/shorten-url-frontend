@@ -5,6 +5,7 @@ import ShortenURL from '@root/routes/shortenurl/ShortenURL.tsx'
 import BookmarksDashboard from '@root/routes/bookmark/BookmarksDashboard.tsx'
 import BookmarksCreation from '@root/routes/bookmark/BookmarksCreation.tsx'
 import SignUp from '@root/routes/auth/SignUp.tsx'
+import BookmarkRedirect from '@root/routes/bookmark/BookmarkRedirect.tsx'
 
 const getAccessToken = () => {
   return localStorage.getItem('accessToken')
@@ -57,6 +58,10 @@ const routes = createBrowserRouter([
       {
         path: 'bookmarks-creation',
         Component: BookmarksCreation,
+      },
+      {
+        path: 'bookmark-creation/:code',
+        Component: BookmarkRedirect,
       },
     ],
   },

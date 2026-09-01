@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-const BASE_USER_URL = 'http://localhost:8082/v1'
+import { BASE_USER_URL } from '@root/api/utils/basePath.ts'
 
 const userApi = axios.create({
   baseURL: BASE_USER_URL,

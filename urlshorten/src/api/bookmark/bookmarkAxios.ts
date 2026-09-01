@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-const BASE_BOOKMARK_URL = 'http://localhost:8081/v1'
+import { BASE_BOOKMARK_URL } from '@root/api/utils/basePath.ts'
 
 const bookmarkApi = axios.create({
   baseURL: BASE_BOOKMARK_URL,

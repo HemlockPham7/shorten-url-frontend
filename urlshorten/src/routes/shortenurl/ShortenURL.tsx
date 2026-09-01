@@ -2,7 +2,7 @@ import { Header } from '@root/components'
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs'
 import { useState } from 'react'
-import { useShortenUrl } from '@root/hooks/bookmark/useShortenURL.ts'
+import { useShortenUrl } from '@root/hooks/link/useShortenURL.ts'
 
 const ShortenURL = () => {
   const [url, setUrl] = useState('')
@@ -17,7 +17,7 @@ const ShortenURL = () => {
   }
 
   const handleGetRedirectUrl = () => {
-    setRedirectUrl(`http://localhost:8081/bookmark-creation/${shortenUrl}`)
+    setRedirectUrl(`${window.location.origin}/bookmark-creation/${shortenUrl}`)
   }
 
   return (

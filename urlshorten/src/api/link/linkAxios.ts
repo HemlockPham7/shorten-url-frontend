@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-const BASE_LINK_URL = 'http://localhost:8081/v1'
+import { BASE_LINK_URL } from '@root/api/utils/basePath.ts'
 
 const linkApi = axios.create({
   baseURL: BASE_LINK_URL,
