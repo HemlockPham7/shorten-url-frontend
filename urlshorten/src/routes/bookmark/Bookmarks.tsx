@@ -5,14 +5,16 @@ import {
   ColumnsDirective,
   GridComponent,
 } from '@syncfusion/ej2-react-grids'
-import { Header, Pagination } from '@root/components'
+import { EditBookmarkModal, Header, Pagination } from '@root/components'
 import { Pencil, Trash2 } from 'lucide-react'
 import type { Bookmark } from '@root/hooks/common/utils.ts'
+import { useState } from 'react'
 
 const PAGE_SIZE = 5
 
 const Bookmarks = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null)
 
   const pageFromUrl = Number(searchParams.get('page') || '1')
   const currentPage = Math.max(pageFromUrl, 1)
@@ -22,12 +24,8 @@ const Bookmarks = () => {
     limit: PAGE_SIZE,
   })
 
-  console.log('data: ', data)
-
   const bookmarks = data?.data ?? []
   const totalPages = Math.ceil((data?.pagination.total ?? 0) / PAGE_SIZE)
-
-  console.log('bookmarks: ', bookmarks)
 
   const safeCurrentPage = totalPages > 0 ? Math.min(currentPage, totalPages) : 1
 
@@ -35,10 +33,6 @@ const Bookmarks = () => {
     setSearchParams({
       page: String(page),
     })
-  }
-
-  const handleEdit = (id: string) => {
-    console.log('Edit bookmark:', id)
   }
 
   const handleDelete = (id: string) => {
@@ -97,12 +91,12 @@ const Bookmarks = () => {
               headerText='Actions'
               width='120'
               textAlign='Center'
-              template={({ id }: Bookmark) => (
+              template={(bookmark: Bookmark) => (
                 <div className='flex items-center justify-center gap-3'>
                   <button
                     type='button'
                     className='text-gray-500 hover:text-primary-500 transition-colors'
-                    onClick={() => handleEdit(id)}
+                    onClick={() => setEditingBookmark(bookmark)}
                     aria-label='Edit bookmark'
                   >
                     <Pencil size={18} />
@@ -111,7 +105,7 @@ const Bookmarks = () => {
                   <button
                     type='button'
                     className='text-gray-500 hover:text-red-500 transition-colors'
-                    onClick={() => handleDelete(id)}
+                    onClick={() => handleDelete(bookmark.id)}
                     aria-label='Delete bookmark'
                   >
                     <Trash2 size={18} />
@@ -134,6 +128,13 @@ const Bookmarks = () => {
           />
         )}
       </section>
+
+      {editingBookmark && (
+        <EditBookmarkModal
+          bookmark={editingBookmark}
+          onClose={() => setEditingBookmark(null)}
+        />
+      )}
     </main>
   )
 }
