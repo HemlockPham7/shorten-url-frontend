@@ -24,7 +24,7 @@ const getBookmarks = async (
 
 export const useListBookmarks = (payload: GetBookmarksPayload) => {
   return useQuery<GetBookmarksResponse, Error>({
-    queryKey: ['bookmarks'],
+    queryKey: ['bookmarks', payload.page, payload.limit],
     queryFn: () => getBookmarks(payload),
   })
 }
