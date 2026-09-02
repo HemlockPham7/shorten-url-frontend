@@ -20,3 +20,6 @@ docker-login:
 
 docker-release:
 	docker push $(IMG_NAME):$(IMG_TAG)
+
+remove-database:
+	sudo rm -rf ./postgres_data
