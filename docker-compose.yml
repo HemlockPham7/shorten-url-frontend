@@ -60,10 +60,8 @@ services:
     image: hemlockpham/worker-service:latest
     restart: always
     container_name: worker-service
-    depends_on:
-      - bookmark-service
     env_file:
-      - .env
+      - ./worker-service/.env
     networks:
       - shorten-url-app
 
