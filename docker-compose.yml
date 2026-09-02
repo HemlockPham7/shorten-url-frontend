@@ -1,0 +1,80 @@
+version: '3.7'
+
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    networks:
+      - shorten-url-app
+
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    env_file:
+      - ./postgres/.env
+    volumes:
+      - ./postgres/init-db:/docker-entrypoint-initdb.d
+      - ./postgres_data:/var/lib/postgresql/data:Z
+    networks:
+      - shorten-url-app
+
+  bookmark-service:
+    image: hemlockpham/bookmark-service:latest
+    restart: always
+    container_name: bookmark-service
+    depends_on:
+      - redis
+      - postgres
+    env_file:
+      - ./bookmark-service/.env
+    volumes:
+      - ./public.pem:/app/public.pem
+      - ./private.pem:/app/private.pem
+    networks:
+      - shorten-url-app
+
+  user-service:
+    image: hemlockpham/user-service:latest
+    restart: always
+    container_name: user-service
+    depends_on:
+      - redis
+      - postgres
+    env_file:
+      - ./user-service/.env
+    volumes:
+      - ./public.pem:/app/public.pem
+      - ./private.pem:/app/private.pem
+    networks:
+      - shorten-url-app
+
+  worker-service:
+    image: hemlockpham/worker-service:latest
+    restart: always
+    container_name: worker-service
+    env_file:
+      - ./worker-service/.env
+    networks:
+      - shorten-url-app
+
+  portal:
+    build: .
+    container_name: portal
+    restart: always
+    networks:
+      - shorten-url-app
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    networks:
+      - shorten-url-app
+
+networks:
+  shorten-url-app:
+    driver: bridge
