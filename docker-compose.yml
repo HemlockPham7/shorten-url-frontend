@@ -1,0 +1,82 @@
+version: '3.7'
+
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - shorten-url-app
+
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./postgres/.env
+    volumes:
+      - ./postgres/init-db:/docker-entrypoint-initdb.d
+      - ./postgres_data:/var/lib/postgresql/data:Z
+    networks:
+      - shorten-url-app
+
+  bookmark-service:
+    image: hemlockpham/bookmark-service:latest
+    restart: always
+    container_name: bookmark-service
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - "8081:8080"
+    env_file:
+      - ./bookmark-service/.env
+    volumes:
+      - ./public.pem:/app/public.pem
+      - ./private.pem:/app/private.pem
+    networks:
+      - shorten-url-app
+
+  user-service:
+    image: hemlockpham/user-service:latest
+    restart: always
+    container_name: user-service
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - "8082:8080"
+    env_file:
+      - ./user-service/.env
+    volumes:
+      - ./public.pem:/app/public.pem
+      - ./private.pem:/app/private.pem
+    networks:
+      - shorten-url-app
+
+  worker-service:
+    image: hemlockpham/worker-service:latest
+    restart: always
+    container_name: worker-service
+    depends_on:
+      - bookmark-service
+    env_file:
+      - .env
+    networks:
+      - shorten-url-app
+
+  portal:
+    build: .
+    ports:
+      - "5173:5173"
+    container_name: portal
+    restart: always
+    networks:
+      - shorten-url-app
+
+
+networks:
+  shorten-url-app:
+    driver: bridge
