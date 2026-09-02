@@ -1,6 +1,6 @@
 GIT_TAG := $(shell git describe --tags --exact-match --abbrev=0 2>/dev/null)
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
-IMG_NAME := hemlockpham/bookmark-service
+IMG_NAME := hemlockpham/shorten-url-portal
 IMG_TAG := latest
 
 ifneq ($(GIT_TAG),)
