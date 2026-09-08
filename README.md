@@ -1,22 +1,46 @@
 # shorten-url-frontend
 
+A modern URL shortening and bookmark management web application built with React 19 and TypeScript.
+
+The frontend provides an interface for users to shorten URLs, create and manage bookmarks, manage their profile, and authenticate securely. It communicates with the backend services through REST APIs and uses client-side routing and server-state management for a responsive user experience.
+
+The project is containerized with Docker and includes the supporting infrastructure required to run the application locally, including PostgreSQL, Redis, backend services, and Nginx.
+
 --- 
 
 ## Tech Stack
+
+| Category         | Technology                  | Purpose                                                          |
+|------------------|-----------------------------|------------------------------------------------------------------|
+| Frontend         | React 19                    | Build the user interface                                         |
+| Language         | TypeScript                  | Type-safe application development                                |
+| Build Tool       | Vite                        | Development server and production build                          |
+| Routing          | React Router                | Client-side routing and route protection                         |
+| Data Fetching    | TanStack Query              | Server-state management, caching, and mutations                  |
+| HTTP Client      | Axios                       | Communication with backend REST APIs                             |
+| UI Components    | Syncfusion React Components | Pre-built UI components such as buttons, inputs, and tables      |
+| Icons            | Lucide React                | Application icons                                                |
+| Styling          | Tailwind CSS                | Utility-first styling                                            |
+| CSS Utilities    | tailwind-merge, clsx        | Conditional and merged Tailwind classes                          |
+| Containerization | Docker                      | Application and service containerization                         |
+| Orchestration    | Docker Compose              | Running frontend, backend, database, and infrastructure services |
+| Reverse Proxy    | Nginx                       | Reverse proxy and API routing                                    |
+| CI/CD            | GitHub Actions              | Automated build and deployment workflows                         |
+
 
 --- 
 
 ## Install library
 
-| Category      | Library                    | Installation                                                                                                                                                                                                                                                                                                      |
-|---------------|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Category      | Library                     | Installation                                                                                                                                                                                                                                                                                                      |
+|---------------|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Syncfusion    | Syncfusion React Components | npm install @syncfusion/ej2-base @syncfusion/ej2-react-buttons @syncfusion/ej2-react-charts @syncfusion/ej2-react-grids @syncfusion/ej2-react-dropdowns @syncfusion/ej2-react-maps @syncfusion/ej2-react-navigations @syncfusion/ej2-react-splitbuttons @syncfusion/ej2-react-charts @syncfusion/ej2-react-inputs |
-| Routing       | React Router               | npm install react-router                                                                                                                                                                                                                                                                                          |
-| Data Fetching | TanStack Query             | npm install @tanstack/react-query @tanstack/react-query-devtools axios                                                                                                                                                                                                                                            |
-| Styling       | Tailwind CSS               | npm install tailwindcss tailwind-merge                                                                                                                                                                                                                                                                            |
-| Prettier      | Prettier                   | npm install -D prettier --save-dev prettier                                                                                                                                                                                                                                                                       |
-| Lucide Icon   | Lucide React               | npm install lucide-react|
-| Utilities     | Day.js, clsx               | npm install dayjs clsx                                                                                                                                                                                                                                                                                            |
+| Routing       | React Router                | npm install react-router                                                                                                                                                                                                                                                                                          |
+| Data Fetching | TanStack Query              | npm install @tanstack/react-query @tanstack/react-query-devtools axios                                                                                                                                                                                                                                            |
+| Styling       | Tailwind CSS                | npm install tailwindcss tailwind-merge                                                                                                                                                                                                                                                                            |
+| Prettier      | Prettier                    | npm install -D prettier --save-dev prettier                                                                                                                                                                                                                                                                       |
+| Lucide Icon   | Lucide React                | npm install lucide-react                                                                                                                                                                                                                                                                                          |
+| Utilities     | Day.js, clsx                | npm install dayjs clsx                                                                                                                                                                                                                                                                                            |
 
 ---
 
