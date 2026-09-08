@@ -96,10 +96,6 @@ shorten-url-frontend/
 
 ![Create a new bookmark](asset/bookmark-creation/img.png)
 
-### Redirect to a bookmark using its code
-
-![Redirect to a bookmark using its code](asset/redirect-url/img.png)
-
 ---
 
 ## Components
@@ -117,35 +113,35 @@ shorten-url-frontend/
 
 ### DeleteBookmarkModal
 
-![DeleteBookmarkModal](asset/components/DeleteBookmarkModal)
+![DeleteBookmarkModal](asset/components/DeleteBookmarkModal/img.png)
 
 ### EditBookmarkModal
 
-![EditBookmarkModal](asset/components/EditBookmarkModal)
+![EditBookmarkModal](asset/components/EditBookmarkModal/img.png)
 
 ### EditProfileModal
 
-![EditProfileModal](asset/components/EditProfileModal)
+![EditProfileModal](asset/components/EditProfileModal/img.png)
 
 ### Header
 
-![Header](asset/components/Header)
+![Header](asset/components/Header/img.png)
 
 ### NavItems
 
-![NavItems](asset/components/NavItems)
+![NavItems](asset/components/NavItems/img.png)
 
 ### Pagination
 
-![Pagination](asset/components/Pagination)
+![Pagination](asset/components/Pagination/img.png)
 
 ### TableSettingsModal
 
-![TableSettingsModal](asset/components/TableSettingsModal)
+![TableSettingsModal](asset/components/TableSettingsModal/img.png)
 
 ### TableToolbar
 
-![TableToolbar](asset/components/TableToolbar)
+![TableToolbar](asset/components/TableToolbar/img.png)
 
 ---
 
